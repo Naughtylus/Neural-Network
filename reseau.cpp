@@ -1,16 +1,8 @@
 /*
     Neural Network
     reseau.h
-        Créé : 09/09/16
-        Fonctions relatives au réseau
-    Historique des modifications :
-        10/09/16    - Ajout de include reseau
-                    - Implémentation de Reseau, ~Reseau, getEntree, getSortie, getNbEntrees, getNbSorties
-        28/09/16    - Modification de setEntrees, du constructeur2
-        04/10/16    - Modification du constructeur2 (ajout de l'aléatoire)
-        10/01/17    - Modification du constructeur2 : adaptation à la nouvelle structure de liaison et de neurone
-                    - Modification des diverses fonctions
-                    - Implémentation de calculeNeurone
+        CrÃ©Ã© : 09/09/16
+        Fonctions relatives au rÃ©seau
 */
 
 #include <iostream>
@@ -28,7 +20,7 @@ Reseau::Reseau()
 
 Reseau::Reseau(vector<unsigned int> nbNeuroneCouche, int mode)
 {
-    // Le nombre de couches est indiqué dans la taille de nbNeuroneCouche
+    // Le nombre de couches est indiquÃ© dans la taille de nbNeuroneCouche
     srand(time(NULL));
     unsigned int i(0), j(0), k(0);
 
@@ -38,7 +30,7 @@ Reseau::Reseau(vector<unsigned int> nbNeuroneCouche, int mode)
     ListeLiaison listeLiaison;
     ListeListeLiaison listeListeLiaison;
 
-    //  Création du tableau de neurones
+    //  CrÃ©ation du tableau de neurones
     listeNeurone.vider();
     for (i = 0 ; i < nbNeuroneCouche.size() ; i++ )
     {
@@ -51,7 +43,7 @@ Reseau::Reseau(vector<unsigned int> nbNeuroneCouche, int mode)
         m_neurones.push_back(listeNeurone);
         listeNeurone.vider();
     }
-    // Création du tableau 3D de liaisons
+    // CrÃ©ation du tableau 3D de liaisons
     for ( k = 0 ; k < nbNeuroneCouche.size()-1 ; k++)
     {
         listeListeLiaison.vider();
@@ -149,7 +141,7 @@ vector<bool> Reseau::calculeSorties()
     unsigned int i(0), j(0);
     vector<bool> sorties;
 
-    // On désactualise les neurones de la couche 1 à la couche de sortie
+    // On dÃ©sactualise les neurones de la couche 1 Ã  la couche de sortie
     for (i=1 ; i < m_nbNeuroneCouche.size() ; i++)
     {
         for (j = 0 ; j < m_nbNeuroneCouche[i] ; j++)
@@ -157,7 +149,7 @@ vector<bool> Reseau::calculeSorties()
             m_neurones[i].setNeuroneActuel(j, false);
         }
     }
-    // On demande le calcul des neurones de sortie, via une fonction récursive
+    // On demande le calcul des neurones de sortie, via une fonction rÃ©cursive
     for (i = 0 ; i < m_nbNeuroneCouche[m_nbNeuroneCouche.size()-1] ; i++)
     {
         caluleNeurone(m_nbNeuroneCouche.size()-1, i);
@@ -174,10 +166,10 @@ void Reseau::caluleNeurone(unsigned int i, unsigned int j)
 
     unsigned int k(0);
     float somme(0);
-    // Si on est pas actualisé, on calcule
+    // Si on est pas actualisÃ©, on calcule
     if ( m_neurones[i].getNeuroneActuel(j) == 0)
     {
-        // Si une entrée est non actualisée, on a un problème
+        // Si une entrÃ©e est non actualisÃ©e, on a un problÃ¨me
         if ( i == 0 )
         {
             exit(EXIT_FAILURE);
