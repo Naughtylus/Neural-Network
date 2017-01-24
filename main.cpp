@@ -1,20 +1,8 @@
 /*
     Neural Network
-        Un réseau de neurones sur le même modèle que "Réseau Neurones liaisons"
+        Un rÃ©seau de neurones sur le mÃªme modÃ¨le que "RÃ©seau Neurones liaisons"
     main.cpp
-        Créé : 09/09/16
-        Utilisation du réseau (complété en dernier)
-    Historique des modifications :
-        28/09/16    - Test de création / utilisation d'un réseau
-        04/10/16    - Dans tout le projet : adaptation du réseau pour traiter des floats
-        13/10/16    - Suppression du test
-                    - Dans tout le projet : modification de la structure du Reseau, des Neurones et des Liaisons
-                        Reseau : listes de Neurones et de Liaisons
-                            Pour une liste de Liaison : la liaison i+n*j relie le neurone i de la couche "entree" (de taille n)
-                                et le neurone j le la couche "sortie" (relativement à cette liste de liaisons)
-                        Neurone : Ne "connait" plus les liaisons entrantes (ou sortantes) relativement à lui
-                        Liaison : Ne connait plus ses Neurones "entrée" et "sortie" relatifs
-                            Ajout des variables "actuel" (bool) et des variables d'erreur pour la réropropagation du gradient
+        CrÃ©Ã© : 09/09/16
 */
 
 
@@ -39,6 +27,7 @@ int main()
     Neurone neurone;        //debug
     Liaison li;             //debug
 
+    // Je fais tout Ã  la main pour les tests (flemme de dÃ©clarer des incrÃ©ments)
     nbNeuroneCouche.clear();
     nbNeuroneCouche.push_back(15);
     nbNeuroneCouche.push_back(14);
@@ -70,7 +59,7 @@ int main()
     reseau.setEntrees(entrees);
 
     neurone=reseau.getEntree(0);    //debug
-    li = reseau.getLiaison(0,0,0);
+    li = reseau.getLiaison(0,0,0);  //debug
 
     sorties = reseau.calculeSorties();
 
