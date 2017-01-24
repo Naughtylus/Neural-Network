@@ -190,7 +190,7 @@ void Reseau::caluleNeurone(unsigned int i, unsigned int j)
                 caluleNeurone(i-1,k);
                 val = m_neurones[i-1].getNeuroneValeur(k);
                 poi = m_liaisons[i-1].getLiaisonPoids(k,j);
-                somme += m_neurones[i-1].getNeuroneValeur(k)*m_liaisons[i-1].getLiaisonPoids(k,j);
+                somme += (m_neurones[i-1].getNeuroneActuel(k)*2-1)*m_liaisons[i-1].getLiaisonPoids(k,j);
             }
             // sigmoide actualise le neurone
             m_neurones[i].getNeuroneSigmoide(j, somme);
