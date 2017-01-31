@@ -38,7 +38,7 @@ int main()
     nbNeuroneCouche.push_back(8);
     nbNeuroneCouche.push_back(15);
 
-    Reseau reseau(nbNeuroneCouche, 1);
+    Reseau<8> reseau(nbNeuroneCouche);
 
     entrees.push_back(false);
     entrees.push_back(false);

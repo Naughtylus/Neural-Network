@@ -14,7 +14,7 @@
 using namespace std;
 
 template <int nbCouches>
-Reseau::Reseau(vector<unsigned int> nbNeuroneCouche)
+Reseau::Reseau<nbCouches>(vector<unsigned int> nbNeuroneCouche)
 {
     // Le nombre de couches est indiqué dans la taille de nbNeuroneCouche
     srand(time(NULL));

@@ -8,3 +8,28 @@
 #include "liaison.h"
 
 using namespace std;
+
+Liaison::Liaison()
+{
+    m_poids=0;
+}
+
+Liaison::Liaison(float poids)
+{
+    m_poids = poids;
+}
+
+Liaison::Liaison(Liaison const& liaison)
+{
+    m_poids = liaison.m_poids;
+}
+
+float Liaison::getPoids()
+{
+    return m_poids;
+}
+
+float Liaison::getGradientPrec()
+{
+    return m_gradientPrec;
+}

@@ -21,7 +21,7 @@ class Reseau
     public :
 
     Reseau(); //1
-    Reseau(std::vector<int> *nbNeuroneCouche);
+    Reseau(std::vector<unsigned int> nbNeuroneCouche);
     ~Reseau();
 
     Neurone getEntree(unsigned int i);
@@ -29,7 +29,7 @@ class Reseau
     Liaison getLiaison(unsigned int i, unsigned int j, unsigned int k);
     int getNbEntrees();
     int getNbSorties();
-    bool setEntrees(bool *entrees);     // Retourne 1 si les entrees ont été initialisées
+    bool setEntrees(std::vector<bool> entrees);     // Retourne 1 si les entrees ont été initialisées
     void setEntreesActuelles(bool actuelles);
 
     std::vector<bool> calculeSorties();
@@ -39,7 +39,7 @@ class Reseau
 
     std::vector<unsigned int> m_nbNeuroneCouche;    // liste
     std::vector<Neurone> m_neurones[nbCouches];           // tableau
-    std::vector< std::vector< ListeListeLiaison > > m_liaisons[nbCouches-1];      // tableau 3D
+    std::vector< std::vector< Liaison > > m_liaisons[nbCouches-1];      // tableau 3D
 };
 
 #endif // DEF_RESEAU
