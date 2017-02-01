@@ -1,8 +1,8 @@
 /*
     Neural Network
     reseau.h
-        CrÃ©Ã© : 09/09/16
-        DÃ©laration de la classe rÃ©seau
+        Créé : 09/09/16
+        Délaration de la classe réseau
 */
 
 #ifndef DEF_RESEAU
@@ -15,12 +15,12 @@
 #include "neurone.h"
 #include "liaison.h"
 
-template <unsigned int nbCouches>
+template <int nbCouches>
 class Reseau
 {
     public :
 
-    Reseau(); //1
+    //Reseau(); //1
     Reseau(std::vector<unsigned int> nbNeuroneCouche);
     ~Reseau();
 
@@ -29,7 +29,7 @@ class Reseau
     Liaison getLiaison(unsigned int i, unsigned int j, unsigned int k);
     int getNbEntrees();
     int getNbSorties();
-    bool setEntrees(std::vector<bool> entrees);     // Retourne 1 si les entrees ont Ã©tÃ© initialisÃ©es
+    void setEntrees(std::vector<bool> entrees);     // Retourne 1 si les entrees ont été initialisées
     void setEntreesActuelles(bool actuelles);
 
     std::vector<bool> calculeSorties();
