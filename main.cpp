@@ -13,8 +13,6 @@
 
 #include "reseau.h"
 
-#define NB_COUCHES 5
-
 using namespace std;
 
 int main()
@@ -31,28 +29,26 @@ int main()
     // Je fais tout à la main pour les tests (flemme de déclarer des incréments)
     nbNeuroneCouche.clear();
     nbNeuroneCouche.push_back(15);
-    nbNeuroneCouche.push_back(14);
     nbNeuroneCouche.push_back(8);
-    nbNeuroneCouche.push_back(6);
     nbNeuroneCouche.push_back(15);
 
-    Reseau<NB_COUCHES> res_test(nbNeuroneCouche);
+    Reseau res_test(nbNeuroneCouche);
 
+    entrees.push_back(true);
     entrees.push_back(false);
     entrees.push_back(false);
+    entrees.push_back(true);
+    entrees.push_back(false);
+    entrees.push_back(true);
     entrees.push_back(false);
     entrees.push_back(false);
+    entrees.push_back(true);
+    entrees.push_back(true);
     entrees.push_back(false);
+    entrees.push_back(true);
+    entrees.push_back(true);
     entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
+    entrees.push_back(true);
 
     res_test.setEntrees(entrees);
 
@@ -61,16 +57,10 @@ int main()
 
     sorties = res_test.calculeSorties();
 
-    for (i = 0 ; i < sorties.size() ; i++)
-    {
-        cout << entrees[i] << " ";
-    }
-    cout << endl;
-    for (i = 0 ; i < sorties.size() ; i++)
-    {
-        cout << sorties[i] << " ";
-    }
-    cout << endl;
+    neurone=res_test.getSortie(0);    //debug
+    li = res_test.getLiaison(0,0,0);  //debug
+
+    res_test.afficheNeurones();
 
     return 0;
 }

@@ -9,13 +9,14 @@
 
 #define DEF_RESEAU
 
+#define PRECISION 100000
+
 #include <vector>
 #include <string>
 
 #include "neurone.h"
 #include "liaison.h"
 
-template <int nbCouches>
 class Reseau
 {
     public :
@@ -29,17 +30,22 @@ class Reseau
     Liaison getLiaison(unsigned int i, unsigned int j, unsigned int k);
     int getNbEntrees();
     int getNbSorties();
+    int getNbCouches();
+    int getNbNeuronesCouches(unsigned int i);
     void setEntrees(std::vector<bool> entrees);     // Retourne 1 si les entrees ont été initialisées
     void setEntreesActuelles(bool actuelles);
 
     std::vector<bool> calculeSorties();
     void caluleNeurone(unsigned int i, unsigned int j);
 
+    void afficheNeurones();
+    void afficheLiaisons();
+
     private :
 
-    std::vector<unsigned int> m_nbNeuroneCouche;    // liste
-    std::vector<Neurone> m_neurones[nbCouches];           // tableau
-    std::vector< std::vector< Liaison > > m_liaisons[nbCouches-1];      // tableau 3D
+    std::vector< unsigned int > m_nbNeuroneCouche;    // liste
+    std::vector< std::vector< Neurone > > m_neurones;           // tableau
+    std::vector< std::vector< std::vector< Liaison > > > m_liaisons;      // tableau 3D
 };
 
 #endif // DEF_RESEAU

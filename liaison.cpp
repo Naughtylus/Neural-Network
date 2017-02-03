@@ -33,3 +33,8 @@ float Liaison::getGradientPrec()
 {
     return m_gradientPrec;
 }
+
+void Liaison::changerPoids(float nouveau)
+{
+    m_poids = nouveau;
+}
