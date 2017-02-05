@@ -3,6 +3,9 @@
 Un réseau de neurones artificiel, codé en C++, orienté objet.
 
 Le but ici est de créer une structure de réseau, telle que décrite dans le fichier "autres/schema-explicatif.png".
-L'apprentissage n'est pas encore à l'ordre du jour, et le fait que cette sructure sera utilisée pour compresser des images n'est pas important pour le moment.
 
-L'idéal serait de finir la structure du réseau avant le 02/02/17.
+La structure de réseau est fonctionelle.
+Le but est maintenant de coder l'apprentissage. Pour cela, je me base sur une thèse de M.Burrel.
+
+Cette version de l'apprentissage fonctionne, mais est encore incomplète.
+Ici, le réseau apprend à reconnaître un vecteur d'entrées. Il faut modifier le code pour apprendre au réseau à reconnaître un jeu de vecteurs d'entrées.
