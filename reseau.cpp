@@ -69,7 +69,7 @@ Reseau::~Reseau()
 
 Neurone Reseau::getEntree(unsigned int i)
 {
-    if (i < m_nbNeuroneCouche[0])
+    if (i < getNbEntrees())
     {
         return Neurone(m_neurones[0][i]);
     }
@@ -78,40 +78,42 @@ Neurone Reseau::getEntree(unsigned int i)
 
 Neurone Reseau::getSortie(unsigned int i)
 {
-    if (i < m_nbNeuroneCouche[m_nbNeuroneCouche.size()-1])
+    unsigned int layerCount = getNbCouches();
+
+    if (i < m_nbNeuroneCouche[layerCount-1])
     {
-        return m_neurones[m_nbNeuroneCouche.size()-1][i].copie();
+        return Neurone(m_neurones[layerCount-1][i]);
     }
     return 0;
 }
 
 Liaison Reseau::getLiaison(unsigned int i, unsigned int j, unsigned int k)
 {
-    if (i < m_nbNeuroneCouche[m_nbNeuroneCouche.size()-1]-1)
+    if (i < getNbSorties()-1)
     {
         return m_liaisons[i][j][k];
     }
     return Liaison(0);
 }
 
-int Reseau::getNbEntrees()
+unsigned int Reseau::getNbEntrees()
 {
     return m_nbNeuroneCouche[0];
 }
 
-int Reseau::getNbSorties()
+unsigned int Reseau::getNbSorties()
 {
-    return m_nbNeuroneCouche[m_nbNeuroneCouche.size()-1];
+    return m_nbNeuroneCouche[getNbCouches()-1];
 }
 
-int Reseau::getNbCouches()
+unsigned int Reseau::getNbCouches()
 {
     return m_nbNeuroneCouche.size();
 }
 
-int Reseau::getNbNeuronesCouches(unsigned int i)
+unsigned int Reseau::getNbNeuronesCouches(unsigned int i)
 {
-    if (i < m_nbNeuroneCouche.size())
+    if (i < getNbCouches())
     {
         return m_nbNeuroneCouche[i];
     }
@@ -120,12 +122,12 @@ int Reseau::getNbNeuronesCouches(unsigned int i)
 
 void Reseau::setEntrees(vector<bool> entrees)
 {
-    if (m_nbNeuroneCouche[0] != entrees.size())
+    if (getNbEntrees() != entrees.size())
     {
         exit(EXIT_FAILURE);
     }
 
-    for (unsigned int i = 0 ; i < m_nbNeuroneCouche[0] ; i++ )
+    for (unsigned int i = 0 ; i < getNbEntrees() ; i++ )
     {
         m_neurones[0][i].setActive(entrees[i]);
         m_neurones[0][i].setActuel(true);
@@ -134,7 +136,7 @@ void Reseau::setEntrees(vector<bool> entrees)
 
 void Reseau::setEntreesActuelles(bool actuelles)
 {
-    for (unsigned int i = 0 ; i < m_nbNeuroneCouche[0] ; i++)
+    for (unsigned int i = 0 ; i < getNbEntrees() ; i++)
     {
         m_neurones[0][i].setActuel(actuelles);
     }
@@ -143,11 +145,12 @@ void Reseau::setEntreesActuelles(bool actuelles)
 vector<bool> Reseau::calculeSorties()
 {
     vector<bool> sorties;
+    unsigned int layerCount = getNbCouches();
 
     // On désactualise les neurones de la couche 1 à la couche de sortie
     for (unsigned int i=1 ; i < layerCount ; i++)
     {
-        for (unsigned int j = 0 ; j < m_nbNeuroneCouche[i] ; j++)
+        for (unsigned int j = 0 ; j < getNbNeuronesCouches(i) ; j++)
         {
             m_neurones[i][j].setActuel(false);
         }
@@ -156,9 +159,9 @@ vector<bool> Reseau::calculeSorties()
     for (unsigned int i = 0 ; i < m_nbNeuroneCouche[layerCount-1] ; i++)
     {
         // Fonction récursive
-        caluleNeurone(m_nbNeuroneCouche.size()-1, i);
+        caluleNeurone(layerCount-1, i);
         // On ajoute l'activation de la sortie à la variable de retour
-        sorties.push_back(m_neurones[m_nbNeuroneCouche.size()-1][i].getActive());
+        sorties.push_back(m_neurones[layerCount-1][i].getActive());
     }
     return sorties;
 }
@@ -194,7 +197,7 @@ void Reseau::afficheNeurones()
     cout << "Neurones :" << endl;
     for (unsigned int i = 0 ; i < getNbCouches() ; i++)
     {
-        for (unsigned int j = 0 ; j < m_nbNeuroneCouche[i] ; j++)
+        for (unsigned int j = 0 ; j < getNbNeuronesCouches(i) ; j++)
         {
             cout << m_neurones[i][j].getActive() << " ";
         }
@@ -213,7 +216,7 @@ void Reseau::afficheLiaisons()
         {
             for (unsigned int k = 0 ; k < m_liaisons[i][j].size() ; k++)
             {
-                cout << m_liaisons[i][j][k].getPoids() << " ";
+                cout << getLiaison(i,j,k).getPoids() << " ";
             }
             cout << endl;
         }

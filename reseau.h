@@ -28,10 +28,10 @@ class Reseau
         Neurone getEntree(unsigned int i);
         Neurone getSortie(unsigned int i);
         Liaison getLiaison(unsigned int i, unsigned int j, unsigned int k);
-        int getNbEntrees();
-        int getNbSorties();
+        unsigned int getNbEntrees();
+        unsigned int getNbSorties();
         unsigned int getNbCouches();
-        int getNbNeuronesCouches(unsigned int i);
+        unsigned int getNbNeuronesCouches(unsigned int i);
         void setEntrees(std::vector<bool> entrees);     // Retourne 1 si les entrees ont été initialisées
         void setEntreesActuelles(bool actuelles);
 
