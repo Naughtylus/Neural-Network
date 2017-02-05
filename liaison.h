@@ -16,7 +16,7 @@ class Liaison
     public :
 
     Liaison();
-    Liaison(class Neurone* entree, class Neurone* sortie, float poids);
+    Liaison(float poids);
     Liaison(Liaison const& liaison);
 
     float getPoids();

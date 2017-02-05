@@ -1,13 +1,15 @@
 /*
     Neural Network
     reseau.h
-        Cr√©√© : 09/09/16
-        D√©laration de la classe r√©seau
+        CrÈÈ : 09/09/16
+        DÈlaration de la classe rÈseau
 */
 
 #ifndef DEF_RESEAU
 
 #define DEF_RESEAU
+
+#define PRECISION 100000
 
 #include <vector>
 #include <string>
@@ -19,8 +21,8 @@ class Reseau
 {
     public :
 
-    Reseau(); //1
-    Reseau(std::vector<unsigned int> nbNeuroneCouche, int mode);   //2 mode -> 0 : Initialisation neutre, 1 : Initialisation al√©atoire
+    //Reseau(); //1
+    Reseau(std::vector<unsigned int> nbNeuroneCouche);
     ~Reseau();
 
     Neurone getEntree(unsigned int i);
@@ -28,17 +30,22 @@ class Reseau
     Liaison getLiaison(unsigned int i, unsigned int j, unsigned int k);
     int getNbEntrees();
     int getNbSorties();
-    bool setEntrees(std::vector<bool> entrees);     // Retourne 1 si les entrees ont √©t√© initialis√©es
+    int getNbCouches();
+    int getNbNeuronesCouches(unsigned int i);
+    void setEntrees(std::vector<bool> entrees);     // Retourne 1 si les entrees ont ÈtÈ initialisÈes
     void setEntreesActuelles(bool actuelles);
 
     std::vector<bool> calculeSorties();
     void caluleNeurone(unsigned int i, unsigned int j);
 
+    void afficheNeurones();
+    void afficheLiaisons();
+
     private :
 
-    std::vector<unsigned int> m_nbNeuroneCouche;    // liste
-    std::vector<ListeNeurone> m_neurones;           // tableau
-    std::vector<ListeListeLiaison> m_liaisons;      // tableau 3D
+    std::vector< unsigned int > m_nbNeuroneCouche;    // liste
+    std::vector< std::vector< Neurone > > m_neurones;           // tableau
+    std::vector< std::vector< std::vector< Liaison > > > m_liaisons;      // tableau 3D
 };
 
 #endif // DEF_RESEAU

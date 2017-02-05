@@ -1,10 +1,9 @@
 /*
     Neural Network
-        Un rÃ©seau de neurones sur le mÃªme modÃ¨le que "RÃ©seau Neurones liaisons"
+        Un réseau de neurones sur le même modèle que "Réseau Neurones liaisons"
     main.cpp
-        CrÃ©Ã© : 09/09/16
+        Créé : 09/09/16
 */
-
 
 #include <iostream>
 #include <fstream>
@@ -27,52 +26,41 @@ int main()
     Neurone neurone;        //debug
     Liaison li;             //debug
 
-    // Je fais tout Ã  la main pour les tests (flemme de dÃ©clarer des incrÃ©ments)
+    // Je fais tout à la main pour les tests (flemme de déclarer des incréments)
     nbNeuroneCouche.clear();
     nbNeuroneCouche.push_back(15);
-    nbNeuroneCouche.push_back(14);
-    nbNeuroneCouche.push_back(8);
-    nbNeuroneCouche.push_back(5);
-    nbNeuroneCouche.push_back(5);
-    nbNeuroneCouche.push_back(6);
     nbNeuroneCouche.push_back(8);
     nbNeuroneCouche.push_back(15);
 
-    Reseau reseau(nbNeuroneCouche, 1);
+    Reseau res_test(nbNeuroneCouche);
 
+    entrees.push_back(true);
     entrees.push_back(false);
     entrees.push_back(false);
+    entrees.push_back(true);
+    entrees.push_back(false);
+    entrees.push_back(true);
     entrees.push_back(false);
     entrees.push_back(false);
+    entrees.push_back(true);
+    entrees.push_back(true);
     entrees.push_back(false);
+    entrees.push_back(true);
+    entrees.push_back(true);
     entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
-    entrees.push_back(false);
+    entrees.push_back(true);
 
-    reseau.setEntrees(entrees);
+    res_test.setEntrees(entrees);
 
-    neurone=reseau.getEntree(0);    //debug
-    li = reseau.getLiaison(0,0,0);  //debug
+    neurone=res_test.getEntree(0);    //debug
+    li = res_test.getLiaison(0,0,0);  //debug
 
-    sorties = reseau.calculeSorties();
+    sorties = res_test.calculeSorties();
 
-    for (i = 0 ; i < sorties.size() ; i++)
-    {
-        cout << entrees[i] << " ";
-    }
-    cout << endl;
-    for (i = 0 ; i < sorties.size() ; i++)
-    {
-        cout << sorties[i] << " ";
-    }
-    cout << endl;
+    neurone=res_test.getSortie(0);    //debug
+    li = res_test.getLiaison(0,0,0);  //debug
+
+    res_test.afficheNeurones();
 
     return 0;
 }
