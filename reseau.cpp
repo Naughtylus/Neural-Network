@@ -101,11 +101,23 @@ Neurone Reseau::getSortie(unsigned int i)
     return 0;
 }
 
+Neurone Reseau::getNeurone(unsigned int i, unsigned int j)
+{
+    if (i < m_nbNeuroneCouche.size())
+    {
+        if (j < m_nbNeuroneCouche[i])
+        {
+            return m_neurones[i][j].copie();
+        }
+    }
+    return Neurone();
+}
+
 Liaison Reseau::getLiaison(unsigned int i, unsigned int j, unsigned int k)
 {
     if (i < m_nbNeuroneCouche[m_nbNeuroneCouche.size()-1]-1)
     {
-        return m_liaisons[i][j][k];
+        return m_liaisons[i][j][k].copie();
     }
     return Liaison(0);
 }
@@ -158,6 +170,39 @@ void Reseau::setEntreesActuelles(bool actuelles)
     }
 }
 
+void Reseau::setLiaisonPoids(unsigned int i, unsigned int j, unsigned int k, float poids)
+{
+    if (i < m_nbNeuroneCouche.size()-1)
+    {
+        if (j < m_nbNeuroneCouche[i] && k < m_nbNeuroneCouche[i+1])
+        {
+            m_liaisons[i][j][k].changerPoids(poids);
+        }
+    }
+}
+
+void Reseau::setNeuroneDelta(unsigned int i, unsigned int j, float delta)
+{
+    if (i < m_nbNeuroneCouche.size())
+    {
+        if (j < m_nbNeuroneCouche[i])
+        {
+            m_neurones[i][j].setDelta(delta);
+        }
+    }
+}
+
+void Reseau::setNeuroneDeltaActuel(unsigned int i, unsigned int j, bool deltaActuel)
+{
+    if (i < m_nbNeuroneCouche.size())
+    {
+        if (j < m_nbNeuroneCouche[i])
+        {
+            m_neurones[i][j].setDeltaActuel(deltaActuel);
+        }
+    }
+}
+
 vector<bool> Reseau::calculeSorties()
 {
     unsigned int i(0), j(0);
@@ -187,8 +232,6 @@ void Reseau::caluleNeurone(unsigned int i, unsigned int j)
     unsigned int k(0);
     float somme(0);
 
-    Neurone neu_test;   //debug
-
     // Si on est pas actualisé, on calcule
     if ( m_neurones[i][j].getActuel() == 0)
     {
@@ -203,7 +246,6 @@ void Reseau::caluleNeurone(unsigned int i, unsigned int j)
             for ( k = 0 ; k < m_nbNeuroneCouche[i-1] ; k++ )
             {
                 caluleNeurone(i-1,k);
-                neu_test = m_neurones[i-1][k].copie();
                 somme += ((m_neurones[i-1][k].getActive())*2-1)*m_liaisons[i-1][k][j].getPoids();
             }
             // sigmoide actualise le neurone

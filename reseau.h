@@ -27,6 +27,7 @@ class Reseau
 
     Neurone getEntree(unsigned int i);
     Neurone getSortie(unsigned int i);
+    Neurone getNeurone(unsigned int i, unsigned int j);
     Liaison getLiaison(unsigned int i, unsigned int j, unsigned int k);
     int getNbEntrees();
     int getNbSorties();
@@ -34,6 +35,9 @@ class Reseau
     int getNbNeuronesCouches(unsigned int i);
     void setEntrees(std::vector<bool> entrees);     // Retourne 1 si les entrees ont été initialisées
     void setEntreesActuelles(bool actuelles);
+    void setLiaisonPoids(unsigned int i, unsigned int j, unsigned int k, float poids);
+    void setNeuroneDelta(unsigned int i, unsigned int j, float delta);
+    void setNeuroneDeltaActuel(unsigned int i, unsigned int j, bool deltaActuel);
 
     std::vector<bool> calculeSorties();
     void caluleNeurone(unsigned int i, unsigned int j);

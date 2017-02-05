@@ -20,14 +20,14 @@ class Liaison
     Liaison(Liaison const& liaison);
 
     float getPoids();
-    float getGradientPrec();
 
     void changerPoids(float nouveau);
+
+    Liaison copie();
 
     private :
 
     float m_poids;
-    float m_gradientPrec;
 };
 
 #endif // DEF_LIAISON
