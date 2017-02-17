@@ -14,27 +14,15 @@
 #include "reseau.h"
 #include "apprentissage.h"
 
-#define NB_ENTREES 50
+#define NB_ENTREES 30
+#define INPUT_VECTORS_COUNT 6
 
 using namespace std;
 
-int main()
+vector<bool> buildInput()
 {
-    srand(time(NULL));
-    unsigned int i(0);
-
-    vector<unsigned int> nbNeuroneCouche;
     vector<bool> entrees;
-    vector<bool> sorties;
-
-    nbNeuroneCouche.clear();
-    nbNeuroneCouche.push_back(NB_ENTREES);
-    nbNeuroneCouche.push_back(5);
-    nbNeuroneCouche.push_back(NB_ENTREES);
-
-    Reseau res_test(nbNeuroneCouche);
-
-    for (i = 0 ; i < NB_ENTREES ; i++)
+    for (int i = 0 ; i < NB_ENTREES ; i++)
     {
         if (rand()%10 < 5)
         {
@@ -45,20 +33,56 @@ int main()
             entrees.push_back(false);
         }
     }
+    return entrees;
+}
 
-    res_test.setEntrees(entrees);
-    sorties = res_test.calculeSorties();
+int main()
+{
+    srand(time(NULL));
+    unsigned int i(0);
 
-    res_test.afficheNeurones();
+    vector<unsigned int> nbNeuroneCouche;
 
-    for (i = 0 ; i < 10 ; i++)
+    nbNeuroneCouche.clear();
+    nbNeuroneCouche.push_back(NB_ENTREES);
+    nbNeuroneCouche.push_back(5);
+    nbNeuroneCouche.push_back(NB_ENTREES);
+
+    Reseau res_test(nbNeuroneCouche);
+
+    vector< vector<bool> > entrees;
+
+    for (i = 0; i < INPUT_VECTORS_COUNT; ++i)
     {
-        res_test.setEntrees(entrees);
-        sorties = res_test.calculeSorties();
+        entrees.push_back(buildInput());
+    }
+
+    cout << "Learning..." << endl;
+    for (i = 0 ; i < 500 ; i++)
+    {
+        vector<bool> input = entrees[i % INPUT_VECTORS_COUNT];
+        res_test.setEntrees(input);
+        res_test.calculeSorties();
         apprentissage(res_test);
     }
 
+    for (i = 0; i < INPUT_VECTORS_COUNT; ++i)
+    {
+        vector<bool> input = entrees[i];
+        res_test.setEntrees(input);
+        res_test.calculeSorties();
+        apprentissage(res_test);
+        cout << "Valeur d'entrainement #" << i << endl;
+        res_test.afficheNeurones();
+        cin.get();
+    }
+
+    cout << "Et maintenant avec un vecteur inconnu" << endl;
+    res_test.setEntrees(buildInput());
+    res_test.calculeSorties();
     res_test.afficheNeurones();
+    cin.get();
+
 
     return 0;
 }
