@@ -36,6 +36,34 @@ vector<bool> buildInput()
     return entrees;
 }
 
+void showResults(vector<bool> expected, vector<bool> got)
+{
+    cout << "Expected :" << endl;
+    for (const bool &value : expected)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+
+    cout << "Got :" << endl;
+    for (const bool &value : got)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+
+    cout << "Accuracy : ";
+    unsigned int correct_values_count = 0;
+    for (unsigned int i = 0; i < expected.size(); ++i)
+    {
+        if (got[i] == expected[i])
+        {
+            ++correct_values_count;
+        }
+    }
+    cout << correct_values_count << "/" << expected.size() << endl;
+}
+
 int main()
 {
     srand(time(NULL));
@@ -58,7 +86,7 @@ int main()
     }
 
     cout << "Learning..." << endl;
-    for (i = 0 ; i < 500 ; i++)
+    for (i = 0 ; i < 700 ; i++)
     {
         vector<bool> input = entrees[i % INPUT_VECTORS_COUNT];
         res_test.setEntrees(input);
@@ -70,18 +98,18 @@ int main()
     {
         vector<bool> input = entrees[i];
         res_test.setEntrees(input);
-        res_test.calculeSorties();
+        vector<bool> output = res_test.calculeSorties();
         apprentissage(res_test);
-        cout << "Valeur d'entrainement #" << i << endl;
-        res_test.afficheNeurones();
-        cin.get();
+        cout << "Vecteur d'entrainement #" << i << endl;
+        showResults(input, output);
+        //cin.get();
     }
 
     cout << "Et maintenant avec un vecteur inconnu" << endl;
-    res_test.setEntrees(buildInput());
-    res_test.calculeSorties();
-    res_test.afficheNeurones();
-    cin.get();
+    vector<bool> input = buildInput();
+    res_test.setEntrees(input);
+    vector<bool> output = res_test.calculeSorties();
+    showResults(input, output);
 
 
     return 0;
