@@ -14,8 +14,8 @@
 #include "reseau.h"
 #include "apprentissage.h"
 
-#define NB_ENTREES 30
-#define INPUT_VECTORS_COUNT 6
+#define NB_ENTREES 10
+#define INPUT_VECTORS_COUNT 12
 
 using namespace std;
 
@@ -36,6 +36,7 @@ vector<bool> buildInput()
     return entrees;
 }
 
+
 void showResults(vector<bool> expected, vector<bool> got)
 {
     cout << "Expected :" << endl;
@@ -53,16 +54,9 @@ void showResults(vector<bool> expected, vector<bool> got)
     cout << endl;
 
     cout << "Accuracy : ";
-    unsigned int correct_values_count = 0;
-    for (unsigned int i = 0; i < expected.size(); ++i)
-    {
-        if (got[i] == expected[i])
-        {
-            ++correct_values_count;
-        }
-    }
-    cout << correct_values_count << "/" << expected.size() << endl;
+    cout << Score(expected, got) << "/" << expected.size() << endl;
 }
+
 
 int main()
 {
@@ -86,31 +80,23 @@ int main()
     }
 
     cout << "Learning..." << endl;
-    for (i = 0 ; i < 700 ; i++)
-    {
-        vector<bool> input = entrees[i % INPUT_VECTORS_COUNT];
-        res_test.setEntrees(input);
-        res_test.calculeSorties();
-        apprentissage(res_test);
-    }
-
     for (i = 0; i < INPUT_VECTORS_COUNT; ++i)
     {
-        vector<bool> input = entrees[i];
-        res_test.setEntrees(input);
-        vector<bool> output = res_test.calculeSorties();
-        apprentissage(res_test);
+        vector<unsigned int> res = res_test.learn(entrees, i);
         cout << "Vecteur d'entrainement #" << i << endl;
-        showResults(input, output);
+        cout << "Appris en " << res[0] << " essais" << endl;
+        cout << "Plus " << res[1] << " passes de reapprentissage" << endl;
         //cin.get();
     }
 
-    cout << "Et maintenant avec un vecteur inconnu" << endl;
-    vector<bool> input = buildInput();
-    res_test.setEntrees(input);
-    vector<bool> output = res_test.calculeSorties();
-    showResults(input, output);
-
+//    cout << endl << "Results" << endl;
+//
+//    for (i = 0; i < INPUT_VECTORS_COUNT; ++i)
+//    {
+//        cout << "Vecteur d'entrainement #" << i << endl;
+//        res_test.setEntrees(entrees[i]);
+//        showResults(entrees[i], res_test.calculeSorties());
+//    }
 
     return 0;
 }

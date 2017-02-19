@@ -45,6 +45,8 @@ class Reseau
     void afficheNeurones();
     void afficheLiaisons();
 
+    std::vector<unsigned int> learn(std::vector< std::vector<bool> > inputs, unsigned int index);
+
     private :
 
     std::vector< unsigned int > m_nbNeuroneCouche;    // liste

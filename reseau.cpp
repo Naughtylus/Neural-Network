@@ -12,6 +12,7 @@
 #include "reseau.h"
 #include "neurone.h"
 #include "liaison.h"
+#include "apprentissage.h"
 
 using namespace std;
 
@@ -272,4 +273,37 @@ void Reseau::afficheLiaisons()
         cout << endl;
     }
     cout << endl;
+}
+
+vector<unsigned int> Reseau::learn(vector< vector<bool> > inputs, unsigned int index)
+{
+    vector<bool> input = inputs[index];
+    vector<bool> output;
+    unsigned int tries = 0;
+    unsigned int score;
+    do
+    {
+        setEntrees(input);
+        output = calculeSorties();
+        apprentissage(this);
+        ++tries;
+        score = Score(input, output);
+    } while (score < input.size());
+
+    unsigned int re_learned = 0;
+    for (unsigned int i = 0; i <= index; ++i)
+    {
+        input = inputs[i];
+        setEntrees(input);
+        output = calculeSorties();
+        if (Score(input, output) < input.size())
+        {
+            vector<unsigned int> results = learn(inputs, i);
+            re_learned += results[0] + results[1];
+        }
+    }
+    vector<unsigned int> out;
+    out.push_back(tries);
+    out.push_back(re_learned);
+    return out;
 }
